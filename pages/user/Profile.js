@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from 'react'
-
-import tableStyles from '../common/styles/table.module.css'
+import Router from "next/router";
+import tableStyles from "@/styles/Table.module.css"
 export default function  Profile(){
     const [profile, setProfile] =useState({})
     useEffect(() => {
@@ -44,9 +44,8 @@ export default function  Profile(){
                     <td><h3>{profile.address}</h3></td>
                 </tr>
                 <tr>
-
+                    <td colSpan={2}><button onClick={e=>{Router.push('/user/modifyUser') }}>수정</button><button onClick={e=>{Router.push('/user/delUser')}}>탈퇴</button></td>
                 </tr>
-                
             </tbody>
         </table>
     </form>

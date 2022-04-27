@@ -12,6 +12,7 @@ import Link from 'next/link';
 import * as yup from 'yup';
 import _ from '../@lodash';
 import Image from 'next/image'
+import { joinRequest } from '../../redux/reducers/userReducer.ts'
 // import './styles/UserLayout.scss'
 // import "./styles/UserRegister.scss"
 // import { CheckList } from '..';
@@ -25,7 +26,7 @@ const schema = yup.object().shape({
   password: yup
     .string()
     .required('비밀번호를 입력하시오')
-    .min(8, '비밀번호가 너무 짧습니다. 최소 8자 이상 되어야 합니다'),
+    .min(1, '비밀번호가 너무 짧습니다. 최소 1자 이상 되어야 합니다'),
   passwordConfirm: yup.string().oneOf([yup.ref('password'), null], '비밀번호가 일치해야 합니다'),
 
 });
@@ -50,9 +51,8 @@ export default function Join() {
 
   const { isValid, dirtyFields, errors } = formState;
 
-  function onSubmit() {
-    reset(defaultValues);
-  }
+  //const onSubmit = () => reset(defaultValues);
+  
 
   return (
     <>
@@ -87,7 +87,8 @@ export default function Join() {
                 <form
                   name="registerForm"
                   noValidate
-                  className="flex flex-col justify-center w-full"                  
+                  className="flex flex-col justify-center w-full"         
+                  onSubmit={handleSubmit(async (data) => { await dispatch(joinRequest({...data,}))})}         
                 >
                   <Controller
                     name="userid"
@@ -249,7 +250,7 @@ export default function Join() {
                     color="primary"
                     className="w-full mx-auto mt-16"
                     aria-label="Register"
-                    disabled={_.isEmpty(dirtyFields) || !isValid}
+                    
                     type="submit"
                   >
                     Create an account

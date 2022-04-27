@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import tableStyles from '../common/style/table.module.css'
+import tableStyles from "@/styles/Table.module.css"
 export default function Calc() {
     const [inputs, setInputs] = useState({opcode: "+"})
     const [result, setResult] = useState(``)
@@ -8,7 +8,10 @@ export default function Calc() {
     const onChange = (e) => {
         e.preventDefault()
         const { value, name } = e.target
-        setInputs({...inputs, [name]: value})
+        setInputs({
+            ...inputs,
+            [name]: value
+        })
     }
 
     const onClick = async (e) => {
@@ -40,7 +43,7 @@ export default function Calc() {
         <tr >
         <td>
             <label htmlFor="">num1</label>
-            <input name="num1" type="text" onChange={onChange} /> <br/>
+            <input name="num1" type="text" onChange={onChange} /> 
 
             <label htmlFor="">연산자</label>
             <select name="opcode" onChange={onChange} >
@@ -49,7 +52,7 @@ export default function Calc() {
                 <option value="*">*</option>
                 <option value="/">/</option>
                 <option value="%">%</option>
-            </select><br/>
+            </select>
 
             <label htmlFor="">num2</label>
             <input name="num2" type="text" onChange={onChange} /><br />
